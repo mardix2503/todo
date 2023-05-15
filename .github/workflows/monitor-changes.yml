@@ -3,7 +3,7 @@ name: Monitor Changes
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
