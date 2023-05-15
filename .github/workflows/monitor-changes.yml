@@ -1,47 +1,13 @@
-name: Monitor Changes
-
-on:
-  push:
-    branches:
-      - main
-
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
 jobs:
-  build:
+  check-bats-version:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check Out Code
-        uses: actions/checkout@v2
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Run Unit Tests
-        run: npm run test
-
-      - name: Run E2E Tests
-        run: npm run e2e
-
-  display-changes:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Check Out Code
-        uses: actions/checkout@v2
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Display Changes
-        run: echo "Displaying changes"
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
