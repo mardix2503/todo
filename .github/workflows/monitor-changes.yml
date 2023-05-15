@@ -6,21 +6,24 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Run Unit Tests
-      run: npm run test:unit
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run E2E Tests
-      run: npm run test:e2e
+      - name: Run unit tests
+        run: npm run test
 
-    - name: Deploy
-      uses: some-deployment-action
+      - name: Run E2E tests
+        run: npm run e2e-test
